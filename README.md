@@ -1,0 +1,1 @@
+Vite + TypeScript + Docker + React + Tailwind
