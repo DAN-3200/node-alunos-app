@@ -7,6 +7,8 @@
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
+![chrome-capture-2025-08-18](https://github.com/user-attachments/assets/4d3813c1-8682-4c11-978c-f3fb69670219)
+
 ## Descrição
 
 App de Gestão de Alunos desenvolvido como parte da atividade prática para a seleção UnMep 2025.2. Criado com NodeJS, TypeScript, React, Tailwind, Vite, Jotai e Framer Motion, o aplicativo lê um arquivo JSON com 1000 registros de alunos e permite visualizar, filtrar e organizar esses dados de forma simples e intuitiva.
