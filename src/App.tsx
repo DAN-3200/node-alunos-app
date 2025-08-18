@@ -1,121 +1,56 @@
-import { useAtom } from 'jotai';
-import data from '../public/alunos.json';
-import { ctxMain } from './context';
+import { TabFilter } from './parts/FilterView';
+import { useEffect, useState } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { TableFixed } from './parts/TableView';
 
 export default function App() {
-	const [, setList] = useAtom(ctxMain.listAlunos);
-	try {
-		setList(data);
-	} catch (e) {
-		console.log(e);
-		setList([]);
-	}
+	document.getElementsByTagName('title')[0].innerText = 'App UnMEP';
+	const [isVisible, setVisible] = useState(true);
+	let durationAnimation = 1600;
+
+	useEffect(() => {
+		setTimeout(() => setVisible(false), durationAnimation);
+	}, []);
 
 	return (
-		<div className='h-screen w-screen bg-[#EDEADE] flex flex-col justify-center gap-2 items-center p-2'>
-			<TabFilter />
-			<BoxList />
+		<div className='h-screen w-screen bg-[#EDEADE] flex justify-center items-center p-2'>
+			<AnimatePresence>
+				{isVisible ? (
+					<div className='flex flex-col gap-4 items-center'>
+						<motion.img
+							initial={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							animate={{ rotate: [0, -10, 10, -10, 0] }}
+							transition={{
+								duration: durationAnimation / 1000,
+								repeat: Infinity,
+								ease: 'easeInOut',
+								repeatType: 'loop',
+							}}
+							style={{ transformOrigin: 'bottom center' }}
+							src='https://loja-unmep.s3.amazonaws.com/static/images/logo-unmep-nova.png'
+							alt=''
+							className='size-40'
+							draggable='false'
+						/>
+						<span className='font-montserrat font-bold text-[32px] text-[#00034F]/70 cursor-default'>
+							<span className='text-blue-400'>Un</span>MEP
+						</span>
+					</div>
+				) : (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						className='flex flex-col items-center justify-center gap-4'>
+						<TabFilter />
+						<TableFixed/>
+						{/* <BoxList /> */}
+						<small className='text-stone-400 cursor-pointer not-hover:opacity-50 font-semibold transition-all'>
+							@ Mini App produzido por Daniel Moreira. Agosto de 2025
+						</small>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 	);
-}
-
-function TabFilter() {
-	// *vai filtrar a lista aqui
-
-	return (
-		<div className='p-2 w-160 bg-emerald-600 rounded flex-col flex gap-2'>
-			<input
-				type='text'
-				name=''
-				id=''
-				className='bg-white'
-				placeholder='Nome'
-			/>
-			<input
-				type='text'
-				name=''
-				id=''
-				className='bg-white'
-				placeholder='Media das Notas'
-			/>
-			<input
-				type='text'
-				name=''
-				id=''
-				className='bg-white'
-				placeholder='Quantidades de Faltas'
-			/>
-			<button className='bg-yellow-400 rounded h-10 w-max p-2 text-sm'>
-				Alunos Aprovados
-			</button>
-			<button className='bg-yellow-400 rounded h-10 w-max p-2 text-sm'>
-				Alunos Reprovados
-			</button>
-		</div>
-	);
-}
-
-interface iAlunos {
-	id: number;
-	primeiro_nome: string;
-	ultimo_nome: string;
-	nota_1: number;
-	nota_2: number;
-	nota_3: number;
-	nota_4: number;
-	faltas: number;
-}
-
-function BoxList() {
-	// *só renderizar a lista já filtrada
-
-	const Line = ({ info }: { info: iAlunos }) => {
-		const media = calcularMedia(
-			info.nota_1,
-			info.nota_2,
-			info.nota_3,
-			info.nota_4
-		);
-		return (
-			<tr className='text-sm h-5'>
-				<td>{info.id}</td>
-				<td>{`${info.primeiro_nome} ${info.ultimo_nome}`}</td>
-				<td>{info.nota_1 || 0}</td>
-				<td>{info.nota_2 || 0}</td>
-				<td>{info.nota_3 || 0}</td>
-				<td>{info.nota_4 || 0}</td>
-				<td>{media.toFixed(1)}</td>
-				<td>{info.faltas}</td>
-				<td>{media >= 7 && info.faltas < 7 ? 'Aprovado' : 'Reprovado'}</td>
-			</tr>
-		);
-	};
-
-	return (
-		<div className='w-160 h-80 rounded bg-white p-2'>
-			<table
-				className='bg-blue-200'
-				cellPadding={2}
-				width='100%'>
-				<tr className='text-sm h-10 bg-red-400'>
-					<th>Id</th>
-					<th>Nome</th>
-					<th>Nota 1</th>
-					<th>Nota 2</th>
-					<th>Nota 3</th>
-					<th>Nota 4</th>
-					<th>Media Final</th>
-					<th>Faltas</th>
-					<th>Status</th>
-				</tr>
-				{(data as iAlunos[]).map((item: iAlunos) => (
-					<Line info={item} />
-				))}
-			</table>
-		</div>
-	);
-}
-
-function calcularMedia(n1: number, n2: number, n3: number, n4: number): number {
-	return (n1 + n2 + n3 + n4) / 4;
 }
