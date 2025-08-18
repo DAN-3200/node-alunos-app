@@ -45,7 +45,7 @@ pnpm run dev
 #### Método via Docker
 
 ```bash
-# Executar a imagem Docker
+# Criar a imagem Docker
 docker build -t unmep-app .
 ```
 
