@@ -3,7 +3,7 @@ import { calcularMedia, type iAlunos } from '../shared/domain';
 import { atom, useAtom, useAtomValue } from 'jotai';
 import { ctxFilter, ctxMain } from '../shared/context';
 import { memo, useMemo } from 'react';
-import * as luc from 'lucide-react';
+
 
 const vSort = atom({ key: '', bool: true });
 
@@ -92,7 +92,6 @@ export function TableFixed() {
 					))
 				) : (
 					<div className='flex flex-col items-center mt-30'>
-						<luc.Search className='w-12 h-12 text-gray-300 mb-4' />
 						<p className='text-lg font-medium'>Nenhum resultado encontrado</p>
 						<p className='text-sm'>Tente ajustar sua pesquisa</p>
 					</div>

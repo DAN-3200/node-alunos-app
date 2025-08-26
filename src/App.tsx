@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { TableFixed } from './parts/TableView';
 
 export default function App() {
-	document.getElementsByTagName('title')[0].innerText = 'App UnMEP';
+	document.getElementsByTagName('title')[0].innerText = 'App AlunosSystem';
 	const [isVisible, setVisible] = useState(true);
 	let durationAnimation = 1600;
 
@@ -28,13 +28,13 @@ export default function App() {
 								repeatType: 'loop',
 							}}
 							style={{ transformOrigin: 'bottom center' }}
-							src='https://loja-unmep.s3.amazonaws.com/static/images/logo-unmep-nova.png'
+							src='https://cdn-icons-png.flaticon.com/512/3377/3377805.png'
 							alt=''
 							className='size-40'
 							draggable='false'
 						/>
 						<span className='font-montserrat font-bold text-[32px] text-[#00034F]/70 cursor-default'>
-							<span className='text-blue-400'>Un</span>MEP
+							<span className='text-red-400'>Alunos</span>System
 						</span>
 					</div>
 				) : (
@@ -43,7 +43,7 @@ export default function App() {
 						animate={{ opacity: 1 }}
 						className='flex flex-col items-center justify-center gap-4'>
 						<TabFilter />
-						<TableFixed/>
+						<TableFixed />
 						{/* <BoxList /> */}
 						<small className='text-stone-400 cursor-pointer not-hover:opacity-50 font-semibold transition-all'>
 							@ Mini App produzido por Daniel Moreira. Agosto de 2025
